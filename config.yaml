@@ -1,0 +1,91 @@
+
+########### 說明區 ##########
+#
+#
+#
+#############################
+
+hp:
+  # types of task: S/P/R/S_Mixup/R_Mixup/R_SA_Mixup
+  task: 'R_SA_Mixup'
+
+  # Dataset: wm811k/mitbih
+  dataset: 'mitbih'
+
+  repeat_times: 5
+
+  # 
+  # s model
+  n_epoch_for_s_model: -1 #300
+  max_esc_for_s_model: -1 #100
+
+  # pl model
+  n_epoch_for_pl_model: 300
+  max_esc_for_pl_model: 300
+  
+  # Pseudolabeling
+  pl_rate: 0.5
+  pl_round: 5
+  pl_max_esc: 5
+
+  pl_n_limit: 10000
+  pl_threshold: 0
+  
+  # optimizer:adam/Ranger/SGD, lr:0.0001/0.001/0.1
+  optimizer: 'Ranger'
+  lr: 0.001
+
+  weight_decay: 0.0005
+  drop_out: 0.2
+  momentum: 0.9
+
+  # Batch
+  accumulate_gradient: True
+  train_batch: 4
+  val_batch: 4
+  # matters if only accumulate_gradient is true, should be a dividend of train/val batch.
+  train_batch_after_accumulate: 64
+  n_worker: 2
+
+  w_wm811k: 32
+  h_wm811k: 32
+  w_mitbih: 128
+  h_mitbih: 128  
+  
+  log: true                              
+  num_pl_epoch: 10            
+  num_epoch: 300       
+  num_round: 5
+  esc_round: 5      
+  max_esc: 300
+
+  alpha: 0.2
+  beta: 0.8
+
+  pretrained: False
+path:
+  # Wide-Resnet
+  # s_model_pretrained: 'models_pretrained/s_model_balance.pth'
+
+  # # WM811K
+  # img_list_wm811k: 'data/wm811k/train_3150_data.npy'
+  # indice_list_wm811k:  'data/wm811k/train_3150_10p_label_indices.npy'
+  # label_list_wm811k: 'data/wm811k/train_3150_10p_label_values.npy'
+  
+  # test_img_list_wm811k: 'data/wm811k/test_700_data.npy'
+  # test_indice_list_wm811k: 'data/wm811k/test_700_label_indices.npy'
+  # test_label_list_wm811k: 'data/wm811k/test_700_label_values.npy'  
+
+  # MITBIH
+  # img_list_mitbih: 'data/MITBIH/train_data_2D_2000.npy'
+  # img_list_mitbih: 'data/MITBIH2/train_data_2D_2000.npy'
+
+  # # Testing data
+  # # test_img_list_mitbih: 'data/MITBIH/test_data_2D_500.npy'
+  # test_img_list_mitbih: 'data/MITBIH2/test_data_2D_500.npy'
+  # # test_label_list_mitbih: 'data/MITBIH/test_2D_500_label_values.npy'
+  # test_label_list_mitbih: 'data/MITBIH2/test_2D_500_label_values.npy'
+
+  # traintools.py, loaders.py -> revise path to this file if needed
+BestVal_each_round:
+TestAcc_each_round:
